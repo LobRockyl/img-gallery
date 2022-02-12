@@ -83,6 +83,6 @@ let articles = require('./routes/articles');
 app.use('/', articles);
 
 // Start Server
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log('Staging Server started on port 3000...');
 });
