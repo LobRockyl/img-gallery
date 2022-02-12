@@ -6,6 +6,7 @@ const session = require('express-session');
 const passport = require('passport');
 const config = require('dotenv').config();
 const connectDB = require('./config/database');
+var cors = require('cors')
 
 
 //database connection
@@ -27,6 +28,8 @@ app.set('view engine', 'pug');
 app.use(express.urlencoded({ extended: false }));
 // parse application/json
 app.use(express.json());
+//cors
+app.use(cors())
 
 // Set Public Folder
 app.use(express.static(path.join(__dirname, 'public')));
