@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 #{title}
+  form(method='POST', action='/')
+    #form-group
+      label Name:
+      input.form-control(name='name', type='text')
+    #form-group
+      label URL:
+      input.form-control(name='url', type='text')
+    #form-group
+      label Details:
+      textarea.form-control(name='details')
+    br
+    input.btn.btn-primary(type='submit',value='Submit')

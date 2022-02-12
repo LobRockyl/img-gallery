@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 #{title}
+  ul.list-group
+    if images
+      each article, i in images
+        li.list-group-item
+          a(href="/show/"+article._id)= article.ImgName
+          img(src=article.ImgURL)
+

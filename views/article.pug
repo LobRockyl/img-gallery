@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= image.ImgName
+  p= image.ImgDetails
+  hr
+  a.btn.btn-default(href=image._id+'/edit') Edit 
+  a.btn.btn-danger.delete-article(href='/delete/',data-id=image._id) Delete
+  
