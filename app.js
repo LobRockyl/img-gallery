@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const expressValidator = require('express-validator');
-const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const config = require('dotenv').config();
@@ -18,10 +17,6 @@ const app = express();
 
 // Bring in Models
 let { Article } = require('./models/article');
-
-// Load View Engine
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
 
 // Body Parser Middleware
 // parse application/x-www-form-urlencoded
@@ -66,26 +61,11 @@ app.use(expressValidator({
   }
 }));
 
-
-// // Home Route
-// app.get('/', function (req, res) {
-//   Article.find({}, function (err, articles) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.render('index', {
-//         title: 'Articles',
-//         articles: articles
-//       });
-//     }
-//   });
-// });
-
 // Route Files
 let articles = require('./routes/articles');
 app.use('/', articles);
 
 // Start Server
-app.listen(process.env.PORT || 3000, function () {
-  console.log('Staging Server started on port 3000...');
+app.listen(process.env.PORT || 5000, function () {
+  console.log("Staging Server started on port "+ this.address().port);
 });
