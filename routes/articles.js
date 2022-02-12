@@ -25,8 +25,9 @@ router.get('/', async (req, res) => {
   let currentPage = req.query.page || 1;
   const perpage = 9
   const articles = await Article.find().sort({'timestamp':1}).skip(perpage*(currentPage-1)).limit(perpage)
-  
-  res.send({success:true, images: articles})
+  const count = await Article.find().count()
+  let num_pages = Math.ceil(pages/perpage)
+  res.send({success:true, images: articles, pages: num_pages})
 });
 
 // Load Edit Form
