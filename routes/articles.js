@@ -3,18 +3,18 @@ const router = express.Router();
 const { Article } = require('../models/article');
 
 // Add Route
-router.get('/new',  async (req, res) => {
-  res.render('add_article', {
-    title: 'Add Article'
-  });
-});
+// router.get('/new',  async (req, res) => {
+//   res.render('add_article', {
+//     title: 'Add Article'
+//   });
+// });
 
 // Get Single Article
 router.get('/show/:id', async (req, res) => {
   try{
     const image = await Article.findById(req.params.id);
   
-    res.render('article',{success:true, image: image})
+    res.send({success:true, image: image})
   }catch (e) {
     res.send(e);
   }
@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
   const perpage = 9
   const articles = await Article.find().sort({'timestamp':1}).skip(perpage*(currentPage-1)).limit(perpage)
   
-  res.render('index',{success:true, images: articles})
+  res.send({success:true, images: articles})
 });
 
 // Load Edit Form
@@ -34,8 +34,7 @@ router.get('/:id/edit', async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
     
-    res.render('edit_article', {
-      title: 'Edit Article',
+    res.send({
       article: article
     });
 
@@ -72,8 +71,9 @@ router.post('/', async (req, res) => {
         ImgDetails: req.body.details,
       });
       article.save();
-      req.flash('success', 'Article Added');
-      res.redirect('/');
+      // req.flash('success', 'Article Added');
+      // res.redirect('/');
+      res.send({success:true, msg:"Article added"})
     }
   } catch (e) {
     res.send(e);
@@ -94,10 +94,11 @@ router.post('/edit/:id', async (req, res) => {
 
     let query = { _id: req.params.id }
 
-    const update = await Article.update(query, article);
+    const update = await Article.updateOne(query, article);
     if (update) {
-      req.flash('success', 'Article Updated');
-      res.redirect('/');
+      // req.flash('success', 'Article Updated');
+      // res.redirect('/');
+      res.send({success:true, msg:"Item Updated"})
     } return;
 
   } catch (e) {
@@ -117,8 +118,7 @@ router.put('/:id/edit', async (req, res) => {
 
     const update = await Article.update(query, article);
     if (update) {
-      req.flash('success', 'Article Updated');
-      res.redirect('/');
+      res.send({success:true, msg:"Item Updated"})
     } return;
 
   } catch (e) {
@@ -137,7 +137,7 @@ router.delete('/delete/:id', async (req, res) => {
     
     remove = await Article.findByIdAndRemove(query);
     if (remove) {
-      res.send('Success');
+      res.send({success:true, msg:"Item deleted"});
     }
    
   } catch (e) {
