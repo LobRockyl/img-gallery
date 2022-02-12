@@ -84,5 +84,5 @@ app.use('/', articles);
 
 // Start Server
 app.listen(3000, function () {
-  console.log('Server started on port 3000...');
+  console.log('Staging Server started on port 3000...');
 });
