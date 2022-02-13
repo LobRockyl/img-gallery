@@ -7,9 +7,11 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import Loading from '../elements/Loading';
 
 export default function Detail () {
   const [data, setdata] = useState(null);
+  const [isloading, setisloading] = useState(false)
   const { id } = useParams();
   const history = useHistory();
   const DeleteImage = async () => {
@@ -24,9 +26,17 @@ export default function Detail () {
 
   const FetchData = async () => {
     if (!id) return;
+    setisloading(true);
     const res = await fetch(`https://backend-lobrockyl.herokuapp.com/show/${id}`);
     const result = await res.json();
     if (result.success) setdata(result.image);
+    setisloading(false);
+  }
+  if (isloading) {
+    return (<div className="flex items-center justify-center border-2 min-h-screen">
+        <Loading text="Loading Images" />
+    </div>
+    )
   }
 
   return (

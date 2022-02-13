@@ -16,7 +16,11 @@ export default function ActionAreaCard ({ id, name, image, detail }) {
   const DeleteImage = async () => {
     const res = await fetch(`https://backend-lobrockyl.herokuapp.com/delete/${id}`, { method: 'DELETE' })
     const result = await res.json();
-    if (result.success) window.location.reload();
+    if (result.success) {
+      setTimeout(() => {
+        window.location.reload()
+      }, 10)
+    }
   }
   // const Style = {
   //   height: 32,
@@ -43,11 +47,11 @@ export default function ActionAreaCard ({ id, name, image, detail }) {
             </Typography>
           </CardContent>
         </CardActionArea>
-        <div className='cursor-pointer'>
+      </Card>
+      </div>
+      <div className='absolute bottom-0 right-30 cursor-pointer'>
         <EditIcon onClick={() => history.push(`/edit/${id}`)} />
         <DeleteIcon onClick={() => DeleteImage()} />
-        </div>
-      </Card>
       </div>
       </div>
   );

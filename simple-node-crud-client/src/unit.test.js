@@ -3,11 +3,9 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 configure({ adapter: new Adapter() });
 import React from 'react';
 import Card from './elements/Card';
-import Enzyme, { shallow, render, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-
 import Form from './components/Form';
-import Create from './containers/Create'
 test('should render card',()=>{
     const wrapper = mount(
         <Card id="1" name="img" image="url" detail="desc" />
